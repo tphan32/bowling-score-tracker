@@ -72,7 +72,7 @@ const Home: React.FC = () => {
     });
   };
 
-  const handleRest = () => {
+  const handleReset = () => {
     setPlayers([{ id: uuidV4(), frames: generateFrames() }]);
     setIsStarted(false);
   };
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
       <Settings
         onStart={handleStartGame}
         onAddPlayer={handleAddPlayer}
-        onReset={handleRest}
+        onReset={handleReset}
         disabled={isStarted}
         players={players}
       />
