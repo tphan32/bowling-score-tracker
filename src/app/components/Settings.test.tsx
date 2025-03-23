@@ -8,7 +8,7 @@ import {
   singlePlayerArr,
 } from "../fixtures/testPlayers";
 
-describe("Settings Component", () => {
+describe("Settings", () => {
   const mockOnStart = jest.fn();
   const mockOnAddPlayer = jest.fn();
   const mockOnReset = jest.fn();

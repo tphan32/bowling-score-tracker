@@ -9,7 +9,7 @@ import {
   singlePlayerArr,
 } from "../fixtures/testPlayers";
 
-describe("Scoreboard Component", () => {
+describe("Scoreboard", () => {
   const mockOnUpdateScore = jest.fn();
 
   beforeEach(() => {
