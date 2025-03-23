@@ -7,8 +7,20 @@ import Settings from "./components/Settings";
 import PageTitle from "./components/PageTitle";
 import Scoreboard from "./components/Scoreboard";
 import { generateFrames } from "./utils/generateFrames";
+import { framesWithMaxScore } from "./fixtures/testFrames";
+import { calculateScore } from "./utils/calculateScore";
+import {
+  LAST_FRAME_IDX,
+  MAX_PLAYERS,
+  MAX_SCORE,
+  MIN_SCORE,
+  SPARE,
+  STRIKE,
+} from "./constants";
 
 const Home: React.FC = () => {
+  calculateScore(framesWithMaxScore);
+
   const [players, setPlayers] = useState<Player[]>([
     { id: uuidV4(), frames: generateFrames() },
   ]);
@@ -21,13 +33,13 @@ const Home: React.FC = () => {
       return prevPlayers.map((player) => {
         if (player.id === playerId) {
           const updatedFrames = [...player.frames];
-          if (score === "X") {
+          if (score === STRIKE) {
             updatedFrames[frameIdx].strike = true;
-            updatedFrames[frameIdx][attempt] = 10;
-            if (frameIdx < 9) {
-              updatedFrames[frameIdx][Attempt.SECOND_ATTEMPT] = 0;
+            updatedFrames[frameIdx][attempt] = MAX_SCORE;
+            if (frameIdx < LAST_FRAME_IDX) {
+              updatedFrames[frameIdx][Attempt.SECOND_ATTEMPT] = MIN_SCORE;
             }
-          } else if (score === "/") {
+          } else if (score === SPARE) {
             updatedFrames[frameIdx].spare = true;
             updatedFrames[frameIdx][attempt] =
               10 - updatedFrames[frameIdx].firstAttempt!;
@@ -51,7 +63,7 @@ const Home: React.FC = () => {
   };
 
   const handleAddPlayer = () => {
-    if (players.length >= 5) {
+    if (players.length >= MAX_PLAYERS) {
       return;
     }
 
