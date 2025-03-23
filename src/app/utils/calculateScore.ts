@@ -46,16 +46,15 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
       }
     }
 
-    if (i > 0 && curFrame.firstAttempt !== undefined) {
-      curFrame.totalScore += oneFrameBehind.totalScore!;
-    }
     curFrame.totalScore += curFrame.thirdAttempt ?? 0;
   }
   return copyFrames;
 };
 
 export const getFinalScore = (frames: Frame[]) => {
-  return frames[9].totalScore!;
+  return frames.reduce((acc, cur) => {
+    return acc + (cur.totalScore ?? 0);
+  }, 0);
 };
 
 export const calculateScore = (frames: Frame[]): number => {
