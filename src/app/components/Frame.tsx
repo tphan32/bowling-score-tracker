@@ -44,7 +44,7 @@ const Frame: React.FC<FrameProps> = ({
         <input
           type="text"
           className="w-9 border-l-1 border-b-1 text-center"
-          disabled={!highlighted}
+          disabled={!highlighted || frame.firstAttempt === undefined}
           onChange={(e) =>
             onUpdateScore(e, {
               frameIdx,
@@ -72,7 +72,11 @@ const Frame: React.FC<FrameProps> = ({
           />
         )}
       </div>
-      <div>{frame.totalScore}</div>
+      <div>
+        {frame.firstAttempt !== undefined &&
+          frame.secondAttempt !== undefined &&
+          frame.totalScore}
+      </div>
     </div>
   );
 };
