@@ -137,10 +137,13 @@ describe("Scoreboard", () => {
     });
   });
 
-  it("should display name of the winner when game is over", () => {
+  it("should display name of the winner and final score when game is over", () => {
     render(
       <Scoreboard players={singlePlayerArr} onUpdateScore={mockOnUpdateScore} />
     );
+    expect(
+      screen.getAllByText(`${hulkPlayer.frames.at(-1)!.totalScore}`)[1]
+    ).toBeInTheDocument();
     expect(screen.getByText(`${hulkPlayer.name} wins!`)).toBeInTheDocument();
   });
 });
