@@ -18,6 +18,7 @@ const Settings: React.FC<SettingsProps> = ({
 }) => {
   return (
     <form
+      role="form"
       onSubmit={onStart}
       className="flex flex-col border-solid border-2 border-gray-600 rounded-lg p-5 mb-16"
     >
