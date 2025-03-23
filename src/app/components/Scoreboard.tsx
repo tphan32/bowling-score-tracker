@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Player, ScoreData } from "../types";
 import Frame from "./Frame";
 import { calculateScore } from "../utils/calculateScore";
@@ -32,7 +32,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ players, onUpdateScore }) => {
     });
   };
 
-  useEffect(() => {
+  if (curFrameIdx <= 9) {
     const shouldGoToNextFrame = players.every((player) => {
       const curFrame = player.frames[curFrameIdx];
       if (curFrameIdx === 9 && (curFrame.spare || curFrame.strike)) {
@@ -47,7 +47,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ players, onUpdateScore }) => {
     if (shouldGoToNextFrame) {
       setCurFrameIdx((prevFrame) => prevFrame + 1);
     }
-  }, [players]);
+  }
 
   return (
     <div className="flex flex-col gap-3">
