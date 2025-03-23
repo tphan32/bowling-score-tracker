@@ -6,18 +6,6 @@ const areAllDown = (frame: Frame, key: "strike" | "spare") => {
 
 export const calculateScore = (frames: Frame[]) => {
   const copyFrames = [...frames];
-
-  // const rolls = copyFrames.map((frame) => {
-  //   if (areAllDown(frame, "spare")) {
-  //     return 1;
-  //   } else if (areAllDown(frame, "strike")) {
-  //     return 2;
-  //   }
-  //   return 0;
-  // });
-
-  // console.log(rolls);
-
   let extraRolls = 0;
 
   for (let i = 0; i < copyFrames.length; i++) {
@@ -26,12 +14,6 @@ export const calculateScore = (frames: Frame[]) => {
     const secondAttemptScore = curFrame.secondAttempt ?? 0;
     const curFrameScore = firstAttemptScore + secondAttemptScore;
     curFrame.totalScore = curFrameScore;
-
-    // if(i > 0 && rolls[i-1]) {
-
-    // }
-
-    // console.log("before extraRolls", i + 1, extraRolls);
 
     if (extraRolls === 1) {
       copyFrames[i - 1].totalScore! += curFrame.firstAttempt!;
@@ -60,8 +42,6 @@ export const calculateScore = (frames: Frame[]) => {
       }
     }
 
-    // console.log("after extraRolls", i + 1, extraRolls);
-
     if (areAllDown(curFrame, "strike")) {
       extraRolls += 2;
     } else if (areAllDown(curFrame, "spare")) {
@@ -75,7 +55,6 @@ export const calculateScore = (frames: Frame[]) => {
   }
 
   return copyFrames.reduce((total, frame) => {
-    console.log(JSON.stringify(frame), total, total + frame.totalScore!);
     return total + frame.totalScore!;
   }, 0);
 };

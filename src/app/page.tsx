@@ -7,8 +7,6 @@ import Settings from "./components/Settings";
 import PageTitle from "./components/PageTitle";
 import Scoreboard from "./components/Scoreboard";
 import { generateFrames } from "./utils/generateFrames";
-import { framesWithMaxScore } from "./fixtures/testFrames";
-import { calculateScore } from "./utils/calculateScore";
 import {
   LAST_FRAME_IDX,
   MAX_PLAYERS,
@@ -19,8 +17,6 @@ import {
 } from "./constants";
 
 const Home: React.FC = () => {
-  calculateScore(framesWithMaxScore);
-
   const [players, setPlayers] = useState<Player[]>([
     { id: uuidV4(), frames: generateFrames() },
   ]);

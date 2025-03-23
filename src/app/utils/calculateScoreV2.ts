@@ -1,6 +1,6 @@
 import { Frame } from "../types";
 
-export const calculateBowlingScore = (frames: Frame[]): number => {
+export const calculateScore = (frames: Frame[]): number => {
   let score = 0;
   let rollIndex = 0;
 
