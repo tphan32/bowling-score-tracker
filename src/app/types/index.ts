@@ -10,8 +10,6 @@ export enum Attempt {
   THIRD_ATTEMPT = "thirdAttempt",
 }
 
-export type BowlingScore = number | "X" | "/";
-
 export interface Frame {
   id: string | number;
   firstAttempt?: number;
