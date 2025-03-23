@@ -20,7 +20,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ players, onUpdateScore }) => {
     e: ChangeEvent<HTMLInputElement>,
     metaData: Omit<ScoreData, "score">
   ) => {
-    const score = e.target.value.toUpperCase();
+    let score = e.target.value.toUpperCase();
     const attempt = metaData.attempt;
 
     if (score !== "/" && score !== "X" && (score < "0" || score > "9")) {
@@ -50,6 +50,7 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ players, onUpdateScore }) => {
         return;
       } else if (curFrameScore === MAX_SCORE) {
         e.target.value = "/";
+        score = "/";
       }
     }
 
