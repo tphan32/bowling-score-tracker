@@ -37,8 +37,13 @@ const Home: React.FC = () => {
             }
           } else if (score === SPARE) {
             updatedFrames[frameIdx].spare = true;
-            updatedFrames[frameIdx][attempt] =
-              10 - updatedFrames[frameIdx].firstAttempt!;
+            if (attempt === Attempt.SECOND_ATTEMPT) {
+              updatedFrames[frameIdx][attempt] =
+                MAX_SCORE - updatedFrames[frameIdx].firstAttempt!;
+            } else if (attempt === Attempt.THIRD_ATTEMPT) {
+              updatedFrames[frameIdx][attempt] =
+                MAX_SCORE - updatedFrames[frameIdx].secondAttempt!;
+            }
           } else {
             updatedFrames[frameIdx][attempt] = +score;
           }

@@ -22,16 +22,13 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
     const curFrame = copyFrames[i];
     const firstAttemptScore = curFrame.firstAttempt ?? 0;
     const secondAttemptScore = curFrame.secondAttempt ?? 0;
-    const twoIdxBehind = i - 2;
     const oneIdxBehind = i - 1;
+    const twoIdxBehind = i - 2;
     const oneFrameBehind = copyFrames[oneIdxBehind];
     const twoFramesBehind = copyFrames[twoIdxBehind];
 
     const curFrameScore = firstAttemptScore + secondAttemptScore;
     curFrame.totalScore = curFrameScore;
-    if (i > 0) {
-      curFrame.totalScore += oneFrameBehind.totalScore;
-    }
 
     if (twoIdxBehind >= 0 && rolls[twoIdxBehind] - 1 >= 0) {
       rolls[twoIdxBehind] -= 1;
@@ -40,7 +37,6 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
         twoFramesBehind.totalScore +
         oneFrameBehind.firstAttempt! +
         oneFrameBehind.secondAttempt!;
-      curFrame.totalScore = oneFrameBehind.totalScore + curFrameScore;
     }
 
     if (oneIdxBehind >= 0 && rolls[oneIdxBehind] - 1 >= 0) {
@@ -53,6 +49,9 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
         }
         oneFrameBehind.totalScore += secondAttemptScore;
       }
+    }
+
+    if (i > 0) {
       curFrame.totalScore = oneFrameBehind.totalScore + curFrameScore;
     }
 

@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { ScoreData, Frame as FrameType, Attempt } from "../types";
+import { LAST_FRAME_IDX } from "../constants";
 
 interface FrameProps {
   frameIdx: number;
@@ -30,7 +31,7 @@ const Frame: React.FC<FrameProps> = ({
         <input
           type="text"
           className="w-9 text-center"
-          disabled={!highlighted}
+          disabled={!highlighted || frame.firstAttempt !== undefined}
           onChange={(e) =>
             onUpdateScore(e, {
               frameIdx,
@@ -44,7 +45,11 @@ const Frame: React.FC<FrameProps> = ({
         <input
           type="text"
           className="w-9 border-l-1 border-b-1 text-center"
-          disabled={!highlighted || frame.firstAttempt === undefined}
+          disabled={
+            !highlighted ||
+            frame.firstAttempt === undefined ||
+            (frame.strike && frameIdx < LAST_FRAME_IDX)
+          }
           onChange={(e) =>
             onUpdateScore(e, {
               frameIdx,
@@ -55,11 +60,11 @@ const Frame: React.FC<FrameProps> = ({
           minLength={1}
           maxLength={1}
         />
-        {frameIdx === 9 && (
+        {frameIdx === LAST_FRAME_IDX && (
           <input
             type="text"
             className="w-9 border-l-1 border-b-1 text-center"
-            disabled={!frame.strike && !frame.spare}
+            disabled={!highlighted || (!frame.strike && !frame.spare)}
             onChange={(e) =>
               onUpdateScore(e, {
                 frameIdx,
