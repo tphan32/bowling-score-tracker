@@ -1,5 +1,7 @@
 # Description
 
+- This is a bowling score tracker app that is built with Next.js (a React framework). You can try it out with a link below.
+
 ## Usage
 
 - Maximum number of players: 5
@@ -43,4 +45,13 @@ Then, run development server
 ```
 npm run dev
 ```
+
+## Deployment
+
+- The app is deployed with Vercel's resource.
+- Steps:
+  - Import repo into Vercel's system
+  - Configure pipeline
+  - Run Vercel's pipeline
+  - Check the app with given links
 
