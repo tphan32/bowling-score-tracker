@@ -61,7 +61,7 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
 };
 
 export const getFinalScore = (frames: Frame[]) => {
-  return frames.at(-1)!.totalScore ?? 0;
+  return frames.at(-1)!.totalScore;
 };
 
 export const calculateScore = (frames: Frame[]): number => {
