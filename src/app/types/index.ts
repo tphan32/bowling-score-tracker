@@ -19,8 +19,7 @@ export interface Frame {
   thirdAttempt?: number;
   spare: boolean;
   strike: boolean;
-  totalScore?: number;
-  complete?: boolean;
+  totalScore: number;
 }
 
 export interface ScoreData {

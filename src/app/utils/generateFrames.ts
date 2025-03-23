@@ -7,6 +7,7 @@ export const generateFrames = (): Frame[] => {
       id: i,
       spare: false,
       strike: false,
+      totalScore: 0,
     });
   }
   return frames;

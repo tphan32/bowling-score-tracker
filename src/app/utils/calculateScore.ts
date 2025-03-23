@@ -22,28 +22,38 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
     const curFrame = copyFrames[i];
     const firstAttemptScore = curFrame.firstAttempt ?? 0;
     const secondAttemptScore = curFrame.secondAttempt ?? 0;
-    const curFrameScore = firstAttemptScore + secondAttemptScore;
-    curFrame.totalScore = curFrameScore;
     const twoIdxBehind = i - 2;
     const oneIdxBehind = i - 1;
     const oneFrameBehind = copyFrames[oneIdxBehind];
     const twoFramesBehind = copyFrames[twoIdxBehind];
 
+    const curFrameScore = firstAttemptScore + secondAttemptScore;
+    curFrame.totalScore = curFrameScore;
+    if (i > 0) {
+      curFrame.totalScore += oneFrameBehind.totalScore;
+    }
+
     if (twoIdxBehind >= 0 && rolls[twoIdxBehind] - 1 >= 0) {
       rolls[twoIdxBehind] -= 1;
-      twoFramesBehind.totalScore! += firstAttemptScore;
+      twoFramesBehind.totalScore += firstAttemptScore;
+      oneFrameBehind.totalScore =
+        twoFramesBehind.totalScore +
+        oneFrameBehind.firstAttempt! +
+        oneFrameBehind.secondAttempt!;
+      curFrame.totalScore = oneFrameBehind.totalScore + curFrameScore;
     }
 
     if (oneIdxBehind >= 0 && rolls[oneIdxBehind] - 1 >= 0) {
       rolls[oneIdxBehind] -= 1;
-      oneFrameBehind.totalScore! += firstAttemptScore;
+      oneFrameBehind.totalScore += firstAttemptScore;
 
       if (rolls[oneIdxBehind] - 1 >= 0) {
         if (!areAllDown(curFrame, "strike")) {
           rolls[oneIdxBehind] -= 1;
         }
-        oneFrameBehind.totalScore! += secondAttemptScore;
+        oneFrameBehind.totalScore += secondAttemptScore;
       }
+      curFrame.totalScore = oneFrameBehind.totalScore + curFrameScore;
     }
 
     curFrame.totalScore += curFrame.thirdAttempt ?? 0;
@@ -52,9 +62,7 @@ const calculateScoreEachFrame = (rolls: number[], frames: Frame[]) => {
 };
 
 export const getFinalScore = (frames: Frame[]) => {
-  return frames.reduce((acc, cur) => {
-    return acc + (cur.totalScore ?? 0);
-  }, 0);
+  return frames.at(-1)!.totalScore ?? 0;
 };
 
 export const calculateScore = (frames: Frame[]): number => {

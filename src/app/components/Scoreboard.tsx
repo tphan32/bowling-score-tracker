@@ -54,7 +54,6 @@ const Scoreboard: React.FC<ScoreboardProps> = ({ players, onUpdateScore }) => {
       <Announcement winners={winners} players={players} />
       {players.map((player) => {
         const isWinner = winners.includes(player.id);
-
         return (
           <div key={player.id}>
             <div className="text-sm">
